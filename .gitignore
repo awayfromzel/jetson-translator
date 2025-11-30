@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environments
+env/
+envs/
+.venv/
+venv/
+
+# Audio / data
+*.wav
+
+# System
+.DS_Store
+*.deb
+archive/
+piper_voices/
+audio_files/
