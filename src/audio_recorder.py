@@ -1,9 +1,14 @@
-# audio_recorder.py
+"""
+Audio recording abstraction using Linux arecord.
+
+Provides start/stop control for push-to-talk recording and
+writes captured audio to a WAV file for downstream processing.
+"""
+
 import os
 import time
 import signal
 import subprocess
-
 
 class AudioRecorder:
     def __init__(self, mic_device: str, rate: int, fmt: str, out_dir: str, filename: str = "speech.wav"):

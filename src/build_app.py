@@ -1,4 +1,13 @@
-# build_app.py
+"""
+Application assembly and dependency wiring.
+
+Initializes hardware interfaces, loads ML models (ASR + MT),
+configures the TTS backend client, and constructs the
+AppController with all required dependencies.
+
+Acts as the composition root of the system.
+"""
+
 import os
 import re
 import torch

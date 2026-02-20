@@ -1,6 +1,15 @@
-# app_controller.py
-import time
+"""
+Application controller for the Jetson Translator.
 
+Implements the main runtime state machine:
+- Handles button press/release events
+- Manages recording lifecycle
+- Triggers the translation pipeline
+- Supports language re-selection via long-press
+- Coordinates LCD updates and GPIO cleanup
+"""
+
+import time
 
 class AppController:
     def __init__(

@@ -1,11 +1,17 @@
-# lcd_display.py
+"""
+LCD display abstraction.
+
+Handles I2C LCD initialization, text rendering,
+and automatic scrolling of long output messages.
+Gracefully disables output if LCD hardware is unavailable.
+"""
+
 import time
 
 try:
     from RPLCD.i2c import CharLCD
 except ImportError:
     CharLCD = None
-
 
 class LCDDisplay:
     def __init__(

@@ -1,6 +1,11 @@
-# gpio_inputs.py
-import time
+"""
+GPIO input utilities.
 
+Provides debounced button handling and long-press detection
+using a polling-based approach compatible with Jetson GPIO.
+"""
+
+import time
 
 class DebouncedButton:
     """

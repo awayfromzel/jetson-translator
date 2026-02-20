@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+"""
+Jetson Translator entry point.
+
+Defines runtime configuration, builds the application
+controller, performs initial language selection,
+and starts the main event loop.
+"""
+
 import os
 import Jetson.GPIO as GPIO
 
@@ -22,7 +29,6 @@ def main():
         "RATE": 16000,
         "FORMAT": "S16_LE",
         "MODEL_ID": "facebook/nllb-200-distilled-600M",
-
         "PIN_MODE": GPIO.BOARD,
         "BTN_PIN_A": 29,
         "BTN_PIN_B": 31,

@@ -1,3 +1,15 @@
+"""
+FastAPI-based Piper TTS microservice.
+
+Loads all configured voices at startup and exposes:
+- GET /health
+- POST /synthesize
+
+Synthesizes speech in-memory and returns raw WAV audio.
+Designed to run in a separate Python environment to
+avoid dependency conflicts with the main application.
+"""
+
 import os
 import io
 import wave
@@ -14,7 +26,7 @@ from piper.voice import PiperVoice
 # ---- env/config ----
 VOICE_DIR = Path(os.environ.get("PIPER_VOICE_DIR", "")).expanduser().resolve()
 USE_CUDA = os.environ.get("PIPER_USE_CUDA", "0").strip().lower() in ("1", "true", "yes", "y")
-# NOTE: You can also add PIPER_SPEAKER_RATE if you ever need it, but Piper will embed the correct rate in the WAV.
+# NOTE: PIPER_SPEAKER_RATE can be added if needed, but Piper will embed the correct rate in the WAV.
 
 VOICE_MAP = {
     "eng_Latn": "en_GB-cori-high",
@@ -48,7 +60,7 @@ def _load_voice(lang_code: str) -> PiperVoice:
     try:
         voice = PiperVoice.load(str(onnx), str(cfg), use_cuda=USE_CUDA)
     except TypeError:
-        # fallback if your build doesn't accept use_cuda kwarg
+        # fallback if build doesn't accept use_cuda kwarg
         voice = PiperVoice.load(str(onnx), str(cfg))
 
     print(f"[TTS] loaded {lang_code} -> {onnx.name} (cuda={USE_CUDA})")

@@ -1,6 +1,11 @@
-# language_selector.py
-import time
+"""
+Rotary encoder language selection UI.
 
+Allows users to rotate to browse language options and
+press to select source/target language pairs.
+"""
+
+import time
 
 class LanguageSelector:
     """
@@ -31,7 +36,7 @@ class LanguageSelector:
         self.sw_active_low = sw_active_low
 
     def _sw_pressed(self, level: int) -> bool:
-        # Your encoder SW is active-low in current wiring/code
+        # Encoder SW is active-low in current wiring/code
         return level == self.gpio.LOW if self.sw_active_low else level == self.gpio.HIGH
 
     def select_one(self, prompt_line1: str, options, initial_index: int = 0):

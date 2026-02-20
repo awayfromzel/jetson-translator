@@ -1,4 +1,15 @@
-# translation_pipeline.py
+"""
+Translation processing pipeline.
+
+Performs:
+- Speech-to-text (ASR)
+- Machine translation (MT)
+- Text-to-speech synthesis (TTS)
+- Audio playback
+- LCD status updates and scrolling output
+
+Encapsulates the full record → translate → speak workflow.
+"""
 
 class TranslationPipeline:
     def __init__(self, transcribe_fn, translate_fn, tts, player, lcd, lcd_cols: int):

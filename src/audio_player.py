@@ -1,4 +1,10 @@
-# audio_player.py
+"""
+Audio playback abstraction using Linux aplay.
+
+Supports direct ALSA devices and optional PulseAudio sink routing.
+Used to play synthesized speech returned from the TTS backend.
+"""
+
 import os
 import subprocess
 import shutil
@@ -11,7 +17,7 @@ class AudioPlayer:
     def _resolve_pulse_sink(self) -> str | None:
         """
         If pulse_sink is an exact sink name, use it.
-        If it’s a substring, pick the first sink containing it.
+        If it's a substring, pick the first sink containing it.
         Return None to fall back to default sink.
         """
         if not self.pulse_sink:

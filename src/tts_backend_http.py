@@ -1,3 +1,10 @@
+"""
+HTTP client for the Piper TTS microservice.
+
+Sends text and language codes to the local FastAPI
+TTS service and stores returned WAV audio locally.
+"""
+
 import uuid
 from pathlib import Path
 
