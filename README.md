@@ -6,8 +6,10 @@ The system performs speech-to-text (Whisper), machine translation (NLLB-200),
 and text-to-speech (Piper) in real time using physical buttons, a rotary encoder,
 and an LCD interface.
 
-## Architecture
+The physical push-to-talk design ensures intentional recording, avoiding accidental activation and improving conversational clarity.
 
+## Architecture
+![System Architecture](docs/Jetson_Architecture.png)
 The system is split into two components:
 
 - Main application (hardware control, ASR, MT)
@@ -17,6 +19,14 @@ The TTS engine runs as a FastAPI service to isolate dependencies
 and avoid conflicts with the main ML stack.
 
 The two components communicate over HTTP (localhost) to maintain environment isolation.
+
+## Prototype Hardware
+
+### Exterior View
+![Exterior](docs/JetsonTranslator-2.jpg)
+
+### Internal Layout
+![Internal](docs/JetsonTranslator-3.jpg)
 
 ## Processing Pipeline
 
