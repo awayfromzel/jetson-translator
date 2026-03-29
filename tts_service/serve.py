@@ -26,6 +26,7 @@ from piper.voice import PiperVoice
 # ---- env/config ----
 VOICE_DIR = Path(os.environ.get("PIPER_VOICE_DIR", "")).expanduser().resolve()
 USE_CUDA = os.environ.get("PIPER_USE_CUDA", "0").strip().lower() in ("1", "true", "yes", "y")
+SKIP_VOICE_LOAD = os.environ.get("SKIP_VOICE_LOAD", "0").strip().lower() in ("1", "true", "yes", "y")
 # NOTE: PIPER_SPEAKER_RATE can be added if needed, but Piper will embed the correct rate in the WAV.
 
 VOICE_MAP = {
@@ -80,6 +81,10 @@ LOCKS: dict[str, threading.Lock] = {}
 
 @app.on_event("startup")
 def startup():
+    if SKIP_VOICE_LOAD:
+        print("[TTS] skipping voice load (SKIP_VOICE_LOAD enabled)")
+        return
+        
     if not VOICE_DIR.is_dir():
         raise RuntimeError(f"PIPER_VOICE_DIR is not a directory: {VOICE_DIR}")
 
@@ -90,8 +95,11 @@ def startup():
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
-
+    return {
+    "status": "ok",
+    "skip_voice_load": SKIP_VOICE_LOAD,
+    "loaded_voices": list(VOICES.keys()),
+    }
 
 @app.post("/synthesize")
 def synthesize(payload: SynthesizeIn):
